@@ -2,10 +2,13 @@ import printPokemonList from "./printPokemonList.js";
 'use strict'
 
 
-const baseUrl = "https://pokeapi.co/api/v2/pokemon";
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let offsetParam = urlParams.get("offset");
 
-fetch(baseUrl)
+
+fetch("https://pokeapi.co/api/v2/pokemon/?offset=" + offsetParam)
   .then(res => res.json())
   .then(data => {
-    printPokemonList(data)
+    printPokemonList(data.results, offsetParam)
   })
